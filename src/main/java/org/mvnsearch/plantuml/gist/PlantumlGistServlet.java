@@ -57,7 +57,7 @@ public class PlantumlGistServlet extends HttpServlet {
         String httpUrl = "https://api.github.com/gists/" + id;
         String responseBody = HttpClientUtils.getResponseBody(httpUrl);
         Map json = gson.fromJson(responseBody, Map.class);
-        if (json.containsKey("message") && json.get("message").equals("Not Found")) {
+        if (json.containsKey("message") && "Not Found".equalsIgnoreCase((String) json.get("message"))) {
             return null;
         }
         Map<String, Map<String, Object>> files = (Map<String, Map<String, Object>>) json.get("files");
