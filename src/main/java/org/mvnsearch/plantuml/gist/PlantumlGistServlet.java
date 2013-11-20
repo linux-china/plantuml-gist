@@ -27,11 +27,14 @@ public class PlantumlGistServlet extends HttpServlet {
         if (gistId.contains("/")) {
             gistId = gistId.substring(0, gistId.indexOf("/"));
         }
-        response.setContentType("image/png");
         try {
             String source = getGistContent(gistId);
             if (source == null) {
                 response.sendRedirect("/img/gist_not_found.png");
+                return;
+            }
+            if (source.equals("no puml found")) {
+                response.sendRedirect("/img/no_puml_found.png");
                 return;
             }
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -40,6 +43,7 @@ public class PlantumlGistServlet extends HttpServlet {
             if ("(Error)".equals(desc)) {
                 response.sendRedirect("render_error.png");
             } else {
+                response.setContentType("image/png");
                 response.getOutputStream().write(bos.toByteArray());
             }
         } catch (Exception e) {
@@ -53,6 +57,9 @@ public class PlantumlGistServlet extends HttpServlet {
         String httpUrl = "https://api.github.com/gists/" + id;
         String responseBody = HttpClientUtils.getResponseBody(httpUrl);
         Map json = gson.fromJson(responseBody, Map.class);
+        if (json.containsKey("message") && json.get("message").equals("Not Found")) {
+            return null;
+        }
         Map<String, Map<String, Object>> files = (Map<String, Map<String, Object>>) json.get("files");
         for (Map.Entry<String, Map<String, Object>> entry : files.entrySet()) {
             String fileName = entry.getKey();
@@ -61,7 +68,7 @@ public class PlantumlGistServlet extends HttpServlet {
                 return (String) file.get("content");
             }
         }
-        return null;
+        return "no puml found";
     }
 
 }
