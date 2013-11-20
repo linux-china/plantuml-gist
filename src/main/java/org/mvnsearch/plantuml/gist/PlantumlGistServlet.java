@@ -1,6 +1,9 @@
 package org.mvnsearch.plantuml.gist;
 
 import com.google.gson.Gson;
+import net.sf.ehcache.Cache;
+import net.sf.ehcache.CacheManager;
+import net.sf.ehcache.Element;
 import net.sourceforge.plantuml.SourceStringReader;
 
 import javax.servlet.ServletException;
@@ -17,6 +20,11 @@ import java.util.Map;
  * @author linux_china
  */
 public class PlantumlGistServlet extends HttpServlet {
+    /**
+     * image cache
+     */
+    private Cache imageCache = CacheManager.getInstance().getCache("plantUmlImages");
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String requestURI = request.getRequestURI();
@@ -26,6 +34,12 @@ public class PlantumlGistServlet extends HttpServlet {
         }
         if (gistId.contains("/")) {
             gistId = gistId.substring(0, gistId.indexOf("/"));
+        }
+        Element element = imageCache.get(gistId);
+        if (element != null && !element.isExpired()) {
+            response.setContentType("image/png");
+            response.getOutputStream().write((byte[]) element.getObjectValue());
+            return;
         }
         try {
             String source = getGistContent(gistId);
@@ -44,7 +58,10 @@ public class PlantumlGistServlet extends HttpServlet {
                 response.sendRedirect("render_error.png");
             } else {
                 response.setContentType("image/png");
-                response.getOutputStream().write(bos.toByteArray());
+                byte[] content = bos.toByteArray();
+                element = new Element(gistId, content);
+                imageCache.put(element);
+                response.getOutputStream().write(content);
             }
         } catch (Exception e) {
             response.sendRedirect("render_error.png");
