@@ -1,0 +1,134 @@
+{
+    "url": "https://api.github.com/gists/6067919",
+    "forks_url": "https://api.github.com/gists/6067919/forks",
+    "commits_url": "https://api.github.com/gists/6067919/commits",
+    "id": "6067919",
+    "git_pull_url": "https://gist.github.com/6067919.git",
+    "git_push_url": "https://gist.github.com/6067919.git",
+    "html_url": "https://gist.github.com/6067919",
+    "files": {
+        "launchItermAndChangeDir.applescript": {
+            "filename": "launchItermAndChangeDir.applescript",
+            "type": "text/plain",
+            "language": "AppleScript",
+            "raw_url": "https://gist.github.com/linux-china/6067919/raw/63370a5a925b91d34bc924665cf8ceb2b5c27e96/launchItermAndChangeDir.applescript",
+            "size": 234,
+            "content": "on run dir\n  tell application \"iTerm\"\n    activate\n    tell the first terminal\n        launch session \"Default Session\"\n\n        tell the last session\n            write text \"cd \" & dir\n        end tell\n    end tell\n  end tell\nend run"
+        }
+    },
+    "public": true,
+    "created_at": "2013-07-24T03:41:41Z",
+    "updated_at": "2013-07-24T03:42:32Z",
+    "description": "lauch iTerm and change directory",
+    "comments": 0,
+    "user": {
+        "login": "linux-china",
+        "id": 46711,
+        "avatar_url": "https://1.gravatar.com/avatar/dad76cd190472ad478f012b67fd6003d?d=https%3A%2F%2Fidenticons.github.com%2Fb952172111c8ee9611f15f35632f4c6a.png&r=x",
+        "gravatar_id": "dad76cd190472ad478f012b67fd6003d",
+        "url": "https://api.github.com/users/linux-china",
+        "html_url": "https://github.com/linux-china",
+        "followers_url": "https://api.github.com/users/linux-china/followers",
+        "following_url": "https://api.github.com/users/linux-china/following{/other_user}",
+        "gists_url": "https://api.github.com/users/linux-china/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/linux-china/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/linux-china/subscriptions",
+        "organizations_url": "https://api.github.com/users/linux-china/orgs",
+        "repos_url": "https://api.github.com/users/linux-china/repos",
+        "events_url": "https://api.github.com/users/linux-china/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/linux-china/received_events",
+        "type": "User",
+        "site_admin": false
+    },
+    "comments_url": "https://api.github.com/gists/6067919/comments",
+    "forks": [],
+    "history": [
+        {
+            "user": {
+                "login": "linux-china",
+                "id": 46711,
+                "avatar_url": "https://1.gravatar.com/avatar/dad76cd190472ad478f012b67fd6003d?d=https%3A%2F%2Fidenticons.github.com%2Fb952172111c8ee9611f15f35632f4c6a.png&r=x",
+                "gravatar_id": "dad76cd190472ad478f012b67fd6003d",
+                "url": "https://api.github.com/users/linux-china",
+                "html_url": "https://github.com/linux-china",
+                "followers_url": "https://api.github.com/users/linux-china/followers",
+                "following_url": "https://api.github.com/users/linux-china/following{/other_user}",
+                "gists_url": "https://api.github.com/users/linux-china/gists{/gist_id}",
+                "starred_url": "https://api.github.com/users/linux-china/starred{/owner}{/repo}",
+                "subscriptions_url": "https://api.github.com/users/linux-china/subscriptions",
+                "organizations_url": "https://api.github.com/users/linux-china/orgs",
+                "repos_url": "https://api.github.com/users/linux-china/repos",
+                "events_url": "https://api.github.com/users/linux-china/events{/privacy}",
+                "received_events_url": "https://api.github.com/users/linux-china/received_events",
+                "type": "User",
+                "site_admin": false
+            },
+            "version": "3e0c0e24b7248d28762d24d3bbff792f21af54df",
+            "committed_at": "2013-07-24T03:42:32Z",
+            "change_status": {
+                "total": 24,
+                "additions": 12,
+                "deletions": 12
+            },
+            "url": "https://api.github.com/gists/6067919/3e0c0e24b7248d28762d24d3bbff792f21af54df"
+        },
+        {
+            "user": {
+                "login": "linux-china",
+                "id": 46711,
+                "avatar_url": "https://1.gravatar.com/avatar/dad76cd190472ad478f012b67fd6003d?d=https%3A%2F%2Fidenticons.github.com%2Fb952172111c8ee9611f15f35632f4c6a.png&r=x",
+                "gravatar_id": "dad76cd190472ad478f012b67fd6003d",
+                "url": "https://api.github.com/users/linux-china",
+                "html_url": "https://github.com/linux-china",
+                "followers_url": "https://api.github.com/users/linux-china/followers",
+                "following_url": "https://api.github.com/users/linux-china/following{/other_user}",
+                "gists_url": "https://api.github.com/users/linux-china/gists{/gist_id}",
+                "starred_url": "https://api.github.com/users/linux-china/starred{/owner}{/repo}",
+                "subscriptions_url": "https://api.github.com/users/linux-china/subscriptions",
+                "organizations_url": "https://api.github.com/users/linux-china/orgs",
+                "repos_url": "https://api.github.com/users/linux-china/repos",
+                "events_url": "https://api.github.com/users/linux-china/events{/privacy}",
+                "received_events_url": "https://api.github.com/users/linux-china/received_events",
+                "type": "User",
+                "site_admin": false
+            },
+            "version": "db3d2dd9dea74246cca9609127de5eb34e298664",
+            "committed_at": "2013-07-24T03:42:05Z",
+            "change_status": {
+                "total": 24,
+                "additions": 12,
+                "deletions": 12
+            },
+            "url": "https://api.github.com/gists/6067919/db3d2dd9dea74246cca9609127de5eb34e298664"
+        },
+        {
+            "user": {
+                "login": "linux-china",
+                "id": 46711,
+                "avatar_url": "https://1.gravatar.com/avatar/dad76cd190472ad478f012b67fd6003d?d=https%3A%2F%2Fidenticons.github.com%2Fb952172111c8ee9611f15f35632f4c6a.png&r=x",
+                "gravatar_id": "dad76cd190472ad478f012b67fd6003d",
+                "url": "https://api.github.com/users/linux-china",
+                "html_url": "https://github.com/linux-china",
+                "followers_url": "https://api.github.com/users/linux-china/followers",
+                "following_url": "https://api.github.com/users/linux-china/following{/other_user}",
+                "gists_url": "https://api.github.com/users/linux-china/gists{/gist_id}",
+                "starred_url": "https://api.github.com/users/linux-china/starred{/owner}{/repo}",
+                "subscriptions_url": "https://api.github.com/users/linux-china/subscriptions",
+                "organizations_url": "https://api.github.com/users/linux-china/orgs",
+                "repos_url": "https://api.github.com/users/linux-china/repos",
+                "events_url": "https://api.github.com/users/linux-china/events{/privacy}",
+                "received_events_url": "https://api.github.com/users/linux-china/received_events",
+                "type": "User",
+                "site_admin": false
+            },
+            "version": "de0acaf835476b97628bf923145c7cfe00494c00",
+            "committed_at": "2013-07-24T03:41:41Z",
+            "change_status": {
+                "total": 12,
+                "additions": 12,
+                "deletions": 0
+            },
+            "url": "https://api.github.com/gists/6067919/de0acaf835476b97628bf923145c7cfe00494c00"
+        }
+    ]
+}
