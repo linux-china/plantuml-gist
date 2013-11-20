@@ -14,6 +14,7 @@
 <h3>Attention</h3>
 <ul>
     <li>Gist's file name extension should be puml, such as xxx.puml</li>
+    <li>Your gist should be public</li>
     <li>You can find gist's ID in "Clone this gist" input field</li>
 </ul>
 </body>
