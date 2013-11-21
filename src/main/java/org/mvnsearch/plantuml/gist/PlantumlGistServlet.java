@@ -5,8 +5,11 @@ import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
 import net.sourceforge.plantuml.SourceStringReader;
+import org.apache.commons.io.IOUtils;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,9 +27,26 @@ public class PlantumlGistServlet extends HttpServlet {
      * image cache
      */
     private Cache imageCache = CacheManager.getInstance().getCache("plantUmlImages");
+    private byte[] gistNotFound = null;
+    private byte[] noPumlFound = null;
+    private byte[] renderError = null;
+
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        try {
+            gistNotFound = IOUtils.toByteArray(this.getClass().getResourceAsStream("/img/gist_not_found.png"));
+            noPumlFound = IOUtils.toByteArray(this.getClass().getResourceAsStream("/img/no_puml_found.png"));
+            renderError = IOUtils.toByteArray(this.getClass().getResourceAsStream("/img/render_error.png"));
+        } catch (Exception e) {
+            throw new ServletException(e);
+        }
+    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("image/png");
+        ServletOutputStream output = response.getOutputStream();
+        byte[] imageContent = renderError;
         String requestURI = request.getRequestURI();
         String gistId = requestURI.replace("/gist/", "");
         if (gistId.contains("?")) {
@@ -36,36 +56,31 @@ public class PlantumlGistServlet extends HttpServlet {
             gistId = gistId.substring(0, gistId.indexOf("/"));
         }
         Element element = imageCache.get(gistId);
-        if (element != null && !element.isExpired()) {
-            response.setContentType("image/png");
-            response.getOutputStream().write((byte[]) element.getObjectValue());
-            return;
+        if (element != null && !element.isExpired()) {  //cache
+            imageContent = (byte[]) element.getObjectValue();
+        } else {
+            try {
+                String source = getGistContent(gistId);
+                if (source == null) {  // gist not found
+                    imageContent = gistNotFound;
+                } else if (source.equalsIgnoreCase("no puml found")) {  // no puml file found
+                    imageContent = noPumlFound;
+                } else {  //render puml content
+                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                    SourceStringReader reader = new SourceStringReader(source);
+                    String desc = reader.generateImage(bos);
+                    if (desc == null || !"(Error)".equals(desc)) {
+                        imageContent = bos.toByteArray();
+                        element = new Element(gistId, imageContent);
+                        imageCache.put(element);
+                    }
+                }
+            } catch (Exception ignore) {
+
+            }
         }
-        try {
-            String source = getGistContent(gistId);
-            if (source == null) {
-                response.sendRedirect("/img/gist_not_found.png");
-                return;
-            }
-            if (source.equals("no puml found")) {
-                response.sendRedirect("/img/no_puml_found.png");
-                return;
-            }
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            SourceStringReader reader = new SourceStringReader(source);
-            String desc = reader.generateImage(bos);
-            if ("(Error)".equals(desc)) {
-                response.sendRedirect("render_error.png");
-            } else {
-                response.setContentType("image/png");
-                byte[] content = bos.toByteArray();
-                element = new Element(gistId, content);
-                imageCache.put(element);
-                response.getOutputStream().write(content);
-            }
-        } catch (Exception e) {
-            response.sendRedirect("render_error.png");
-        }
+        output.write(imageContent);
+        output.flush();
     }
 
     @SuppressWarnings("unchecked")
