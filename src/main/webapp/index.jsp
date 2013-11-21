@@ -49,7 +49,10 @@
     </div>
 
     <div class="footer">
-        <p>&copy; MvnSearch 2013</p>
+        <p>&copy; MvnSearch 2013 &nbsp;
+            Links: &nbsp; <a href="http://plantuml.sourceforge.net" target="_blank">PlantUML</a>
+            &nbsp; <a href="https://gist.github.com" target="_blank">GithubGist</a>
+        </p>
     </div>
 </div>
 </body>
