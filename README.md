@@ -1,8 +1,8 @@
 PlantUML Gist
 ======================================
-Render PlantUML from gist
+Render PlantUML from Github Gist
 
+### Features
 
-### todo
-
-* ehcache support. local storage
+* Local cache in 2 minutes
+* Error Image
