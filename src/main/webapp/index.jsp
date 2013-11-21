@@ -23,7 +23,7 @@
     <div class="jumbotron">
         <h1>PlantUML Gist</h1>
 
-        <p class="lead">Render PlantUML from Github Gist. Please replace "xxx" with your gist id in http://uml.mvnsearch.org/git/xxx</p>
+        <p class="lead">Render PlantUML from Github Gist. Please replace "xxx" with your gist id in <strong>http://uml.mvnsearch.org/gist/xxx</strong></p>
 
         <p><a class="btn btn-lg btn-success" href="/gist/7563171" role="button" target="_blank">http://uml.mvnsearch.org/git/7563171</a></p>
     </div>
