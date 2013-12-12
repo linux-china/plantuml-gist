@@ -18,7 +18,7 @@
         <dependency>
             <groupId>net.sourceforge.plantuml</groupId>
             <artifactId>plantuml</artifactId>
-            <version>7986</version>
+            <version>7988</version>
         </dependency>
         <dependency>
             <groupId>commons-httpclient</groupId>
