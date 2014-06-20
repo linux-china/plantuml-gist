@@ -48,7 +48,7 @@
 
             <h4>Cache Support</h4>
 
-            <p>UML Diagram will be cached 2 minutes, no render in 2 minutes despite gist changes</p>
+            <p>UML Diagram will be cached 2 minutes, no render in 2 minutes despite file changes</p>
         </div>
     </div>
 
