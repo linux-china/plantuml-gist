@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,6 +35,7 @@ public class PlantumlGitlabServlet extends HttpServlet {
      */
     private Cache imageCache = CacheManager.getInstance().getCache("plantUmlImages");
     private byte[] noPumlFound = null;
+    private byte[] notDeveloper = null;
     private byte[] renderError = null;
     private GitlabAPI gitlabAPI;
     private GitlabInfo gitlabInfo = new GitlabInfo();
@@ -45,6 +47,7 @@ public class PlantumlGitlabServlet extends HttpServlet {
             initGitlabInfo();
             noPumlFound = IOUtils.toByteArray(this.getClass().getResourceAsStream("/img/no_puml_found.png"));
             renderError = IOUtils.toByteArray(this.getClass().getResourceAsStream("/img/render_error.png"));
+            notDeveloper = IOUtils.toByteArray(this.getClass().getResourceAsStream("/img/gitlab_not_developer.png"));
         } catch (Exception e) {
             throw new ServletException(e);
         }
@@ -83,8 +86,10 @@ public class PlantumlGitlabServlet extends HttpServlet {
                             imageCache.put(element);
                         }
                     }
-                } catch (Exception ignore) {
-                    ignore.printStackTrace();
+                } catch (FileNotFoundException e) {
+                    imageContent = notDeveloper;
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         } else {
