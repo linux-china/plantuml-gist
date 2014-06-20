@@ -23,6 +23,8 @@ import java.util.Map;
 
 /**
  * Plantuml gitlab servlet
+ * <p/>
+ * demo url: http://localhost:8080/gitlab/uic/uic-structure/blob/master/uml/uic-deployment.puml
  *
  * @author linux_china
  */
@@ -31,7 +33,6 @@ public class PlantumlGitlabServlet extends HttpServlet {
      * image cache
      */
     private Cache imageCache = CacheManager.getInstance().getCache("plantUmlImages");
-    private byte[] fileNotFound = null;
     private byte[] noPumlFound = null;
     private byte[] renderError = null;
     private GitlabAPI gitlabAPI;
@@ -42,7 +43,6 @@ public class PlantumlGitlabServlet extends HttpServlet {
         try {
             gitlabAPI = GitlabAPI.connect(config.getInitParameter("gitlabUrl"), config.getInitParameter("userToken"));
             initGitlabInfo();
-            fileNotFound = IOUtils.toByteArray(this.getClass().getResourceAsStream("/img/gist_not_found.png"));
             noPumlFound = IOUtils.toByteArray(this.getClass().getResourceAsStream("/img/no_puml_found.png"));
             renderError = IOUtils.toByteArray(this.getClass().getResourceAsStream("/img/render_error.png"));
         } catch (Exception e) {
@@ -71,9 +71,7 @@ public class PlantumlGitlabServlet extends HttpServlet {
             } else {
                 try {
                     String source = getGitlabFileContent(filePath);
-                    if (source == null) {  // gist not found
-                        imageContent = fileNotFound;
-                    } else if (source.equalsIgnoreCase("no puml found")) {  // no puml file found
+                    if (source == null) {  // puml file not found
                         imageContent = noPumlFound;
                     } else {  //render puml content
                         ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -105,6 +103,11 @@ public class PlantumlGitlabServlet extends HttpServlet {
     public String getGitlabFileContent(String filePath) throws Exception {
         String projectPath = filePath.substring(0, filePath.indexOf("/blob/"));
         GitlabProjectInfo project = gitlabInfo.findProject(projectPath);
+        //if project not found, try to refresh gitlab info
+        if (project == null) {
+            initGitlabInfo();
+            project = gitlabInfo.findProject(projectPath);
+        }
         String path = filePath.substring(filePath.indexOf("/blob/") + 6);
         String branch = path.substring(0, path.indexOf("/"));
         path = path.substring(path.indexOf("/") + 1);
