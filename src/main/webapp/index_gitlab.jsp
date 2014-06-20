@@ -26,7 +26,7 @@
         <p class="lead">Render PlantUML from Gitlab. Please replace "xxx" with your file path in <strong>http://uml.mvnsearch.org/gitlab/xxx</strong>
         </p>
 
-        <p><a class="btn btn-lg btn-success" href="/gitlab/7563171" role="button" target="_blank">http://uml.mvnsearch.org/gitlab/7563171</a>
+        <p><a class="btn btn-lg btn-success" href="#" role="button">http://uml.mvnsearch.org/gitlab/xxx.puml</a>
         </p>
     </div>
 
