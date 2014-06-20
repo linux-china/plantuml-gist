@@ -84,7 +84,7 @@ public class PlantumlGitlabServlet extends HttpServlet {
                         }
                     }
                 } catch (Exception ignore) {
-
+                    ignore.printStackTrace();
                 }
             }
         } else {
