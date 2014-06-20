@@ -23,10 +23,12 @@
     <div class="jumbotron">
         <h1>PlantUML Gitlab</h1>
 
-        <p class="lead">Render PlantUML from Gitlab. Please replace "xxx" with your file path in <strong>http://uml.mvnsearch.org/gitlab/xxx</strong>
+        <p class="lead">Render PlantUML from Gitlab. Please replace "xxx" with your file path in
+            <strong><%=application.getInitParameter("baseUrl")%>/gitlab/xxx</strong>
         </p>
 
-        <p><a class="btn btn-lg btn-success" href="#" role="button">http://uml.mvnsearch.org/gitlab/xxx.puml</a>
+        <p><a class="btn btn-lg btn-success" href="#" role="button"><%=application.getInitParameter("baseUrl")%>
+            /gitlab/xxx.puml</a>
         </p>
     </div>
 
@@ -38,7 +40,7 @@
 
             <h4>Security</h4>
 
-            <p>Please add plantuml as your project member</p>
+            <p>Please add plantuml as your project developer member</p>
 
             <h4>What is file path</h4>
 
