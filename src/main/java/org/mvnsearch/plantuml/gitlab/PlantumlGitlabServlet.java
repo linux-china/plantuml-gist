@@ -63,7 +63,7 @@ public class PlantumlGitlabServlet extends HttpServlet {
         ServletOutputStream output = response.getOutputStream();
         byte[] imageContent = renderError;
         String requestURI = request.getRequestURI();
-        String filePath = requestURI.replace("/gitlab/", "");
+        String filePath = requestURI.replace("/gitlab/", "/");
         Element element = imageCache.get(filePath);
         if (filePath.endsWith(".puml")) {
             if (element != null && !element.isExpired()) {  //cache
