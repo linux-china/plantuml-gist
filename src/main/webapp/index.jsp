@@ -19,14 +19,13 @@
         </ul>
         <h3 class="text-muted">PlantUML Gist</h3>
     </div>
-
     <div class="jumbotron">
         <h1>PlantUML Gist</h1>
 
-        <p class="lead">Render PlantUML from Github Gist. Please replace "xxx" with your gist id in <strong>http://uml.mvnsearch.org/gist/xxx</strong>
+        <p class="lead">Render PlantUML from Github Gist. Please replace "xxx" with your gist id in <strong><%=application.getInitParameter("baseUrl")%>/gist/xxx</strong>
         </p>
 
-        <p><a class="btn btn-lg btn-success" href="/gist/7563171" role="button" target="_blank">http://uml.mvnsearch.org/git/7563171</a>
+        <p><a class="btn btn-lg btn-success" href="/gist/7563171" role="button" target="_blank"><%=application.getInitParameter("baseUrl")%>/git/7563171</a>
         </p>
     </div>
 
