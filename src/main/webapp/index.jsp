@@ -14,7 +14,7 @@
 <div class="container">
     <div class="header">
         <ul class="nav nav-pills pull-right">
-            <li class="active"><a href="/">Home</a></li>
+            <li class="active"><a href="/index_gitlab.jsp">Plantuml Gitlab</a></li>
             <li><a href="https://github.com/linux-china/plantuml-gist" target="_blank">Source</a></li>
         </ul>
         <h3 class="text-muted">PlantUML Gist</h3>
@@ -23,9 +23,11 @@
     <div class="jumbotron">
         <h1>PlantUML Gist</h1>
 
-        <p class="lead">Render PlantUML from Github Gist. Please replace "xxx" with your gist id in <strong>http://uml.mvnsearch.org/gist/xxx</strong></p>
+        <p class="lead">Render PlantUML from Github Gist. Please replace "xxx" with your gist id in <strong>http://uml.mvnsearch.org/gist/xxx</strong>
+        </p>
 
-        <p><a class="btn btn-lg btn-success" href="/gist/7563171" role="button" target="_blank">http://uml.mvnsearch.org/git/7563171</a></p>
+        <p><a class="btn btn-lg btn-success" href="/gist/7563171" role="button" target="_blank">http://uml.mvnsearch.org/git/7563171</a>
+        </p>
     </div>
 
     <div class="row marketing">
