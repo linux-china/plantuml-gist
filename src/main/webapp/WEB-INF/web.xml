@@ -5,6 +5,10 @@
 		  http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
          version="2.5">
 
+    <context-param>
+        <param-name>baseUrl</param-name>
+        <param-value>http://uml.mvnsearch.org</param-value>
+    </context-param>
     <servlet>
         <servlet-name>PlantumlGistServlet</servlet-name>
         <servlet-class>org.mvnsearch.plantuml.gist.PlantumlGistServlet</servlet-class>
