@@ -1,4 +1,4 @@
-package org.mvnsearch.plantuml.gist;
+package org.mvnsearch.plantuml.gitlab;
 
 /**
  * gitlab project
