@@ -9,8 +9,24 @@
         <servlet-name>PlantumlGistServlet</servlet-name>
         <servlet-class>org.mvnsearch.plantuml.gist.PlantumlGistServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PlantumlGitlabServlet</servlet-name>
+        <servlet-class>org.mvnsearch.plantuml.gitlab.PlantumlGitlabServlet</servlet-class>
+        <init-param>
+            <param-name>gitlabUrl</param-name>
+            <param-value>http://gitlab.mvnsearch.org</param-value>
+        </init-param>
+        <init-param>
+            <param-name>userToken</param-name>
+            <param-value>xxxxxx</param-value>
+        </init-param>
+    </servlet>
     <servlet-mapping>
         <servlet-name>PlantumlGistServlet</servlet-name>
         <url-pattern>/gist/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PlantumlGitlabServlet</servlet-name>
+        <url-pattern>/gitlab/*</url-pattern>
     </servlet-mapping>
 </web-app>
