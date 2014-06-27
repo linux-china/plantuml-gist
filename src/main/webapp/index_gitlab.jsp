@@ -27,8 +27,7 @@
             <strong><%=application.getInitParameter("baseUrl")%>/gitlab/xxx</strong>
         </p>
 
-        <p><a class="btn btn-lg btn-success" href="#" role="button"><%=application.getInitParameter("baseUrl")%>
-            /gitlab/xxx.puml</a>
+        <p><a class="btn btn-lg btn-success" href="#" role="button"><%=application.getInitParameter("baseUrl")%>/gitlab/xxx.puml</a>
         </p>
     </div>
 
