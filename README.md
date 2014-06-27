@@ -5,8 +5,8 @@ Render PlantUML from Github Gist & Gitlab
 ### Features
 
 * gist & gitlab support
-* Local cache in 2 minutes
 * Error Image
+* Cache support
 
 ### gitlab
 
