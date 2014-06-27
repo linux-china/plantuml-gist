@@ -106,6 +106,9 @@ public class PlantumlGitlabServlet extends HttpServlet {
      * @return puml file content
      */
     public String getGitlabFileContent(String filePath) throws Exception {
+        if (filePath.contains("/raw/")) {
+            filePath = filePath.replace("/raw/", "/blob/");
+        }
         String projectPath = filePath.substring(0, filePath.indexOf("/blob/"));
         GitlabProjectInfo project = gitlabInfo.findProject(projectPath);
         //if project not found, try to refresh gitlab info
