@@ -7,14 +7,22 @@
            eternal="false"
            overflowToDisk="true"
            diskPersistent="true"
-           timeToIdleSeconds="60"
+           timeToIdleSeconds="120"
            timeToLiveSeconds="120" memoryStoreEvictionPolicy="LFU"/>
-    <cache name="plantUmlFiles"
+    <cache name="uniqueImages"
            maxElementsInMemory="800"
            maxElementsOnDisk="2000"
            eternal="false"
            overflowToDisk="true"
            diskPersistent="true"
-           timeToIdleSeconds="60"
-           timeToLiveSeconds="120" memoryStoreEvictionPolicy="LFU"/>
+           timeToIdleSeconds="12000"
+           timeToLiveSeconds="12000" memoryStoreEvictionPolicy="LFU"/>
+    <cache name="plantUmlFiles"
+           maxElementsInMemory="800"
+           maxElementsOnDisk="8000"
+           eternal="false"
+           overflowToDisk="true"
+           diskPersistent="true"
+           timeToIdleSeconds="12000"
+           timeToLiveSeconds="12000" memoryStoreEvictionPolicy="LFU"/>
 </ehcache>
