@@ -5,6 +5,7 @@ import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
 import net.sourceforge.plantuml.SourceStringReader;
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.IOUtils;
 import org.gitlab.api.GitlabAPI;
 import org.gitlab.api.http.GitlabHTTPRequestor;
@@ -34,6 +35,8 @@ public class PlantumlGitlabServlet extends HttpServlet {
      * image cache
      */
     private Cache imageCache = CacheManager.getInstance().getCache("plantUmlImages");
+    private Cache uniqueImagesCache = CacheManager.getInstance().getCache("uniqueImages");
+    private Cache fileCache = CacheManager.getInstance().getCache("plantUmlFiles");
     private byte[] noPumlFound = null;
     private byte[] notDeveloper = null;
     private byte[] renderError = null;
@@ -67,8 +70,8 @@ public class PlantumlGitlabServlet extends HttpServlet {
         byte[] imageContent = renderError;
         String requestURI = request.getRequestURI();
         String filePath = requestURI.replace("/gitlab/", "/");
-        Element element = imageCache.get(filePath);
         if (filePath.endsWith(".puml")) {
+            Element element = imageCache.get(filePath);
             if (element != null && !element.isExpired()) {  //cache
                 imageContent = (byte[]) element.getObjectValue();
             } else {
@@ -77,13 +80,9 @@ public class PlantumlGitlabServlet extends HttpServlet {
                     if (source == null) {  // puml file not found
                         imageContent = noPumlFound;
                     } else {  //render puml content
-                        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                        SourceStringReader reader = new SourceStringReader(source);
-                        String desc = reader.generateImage(bos);
-                        if (desc == null || !"(Error)".equals(desc)) {
-                            imageContent = bos.toByteArray();
-                            element = new Element(filePath, imageContent);
-                            imageCache.put(element);
+                        imageContent = renderPuml(filePath, source);
+                        if (imageContent == null) {
+                            imageContent = noPumlFound;
                         }
                     }
                 } catch (FileNotFoundException e) {
@@ -110,20 +109,49 @@ public class PlantumlGitlabServlet extends HttpServlet {
             filePath = filePath.replace("/raw/", "/blob/");
         }
         String projectPath = filePath.substring(0, filePath.indexOf("/blob/"));
-        GitlabProjectInfo project = gitlabInfo.findProject(projectPath);
-        //if project not found, try to refresh gitlab info
-        if (project == null) {
-            initGitlabInfo();
-            project = gitlabInfo.findProject(projectPath);
+        try {
+            GitlabProjectInfo project = gitlabInfo.findProject(projectPath);
+            //if project not found, try to refresh gitlab info
+            if (project == null) {
+                initGitlabInfo();
+                project = gitlabInfo.findProject(projectPath);
+            }
+            String path = filePath.substring(filePath.indexOf("/blob/") + 6);
+            String branch = path.substring(0, path.indexOf("/"));
+            path = path.substring(path.indexOf("/") + 1);
+            GitlabHTTPRequestor retrieve = gitlabAPI.retrieve();
+            Map<String, Object> content = retrieve.to("/projects/" + project.getId() + "/repository/files?file_path=" + path + "&ref=" + branch, HashMap.class);
+            if (content.containsKey("content")) {
+                byte[] contents = Base64.decodeBase64((String) content.get("content"));
+                String source = new String(contents);
+                fileCache.put(new Element(fileCache, source));
+                return source;
+            }
+        } catch (Exception e) {
+            Element element = fileCache.get(filePath);
+            if (element != null && !element.isExpired()) {
+                return (String) element.getObjectValue();
+            }
         }
-        String path = filePath.substring(filePath.indexOf("/blob/") + 6);
-        String branch = path.substring(0, path.indexOf("/"));
-        path = path.substring(path.indexOf("/") + 1);
-        GitlabHTTPRequestor retrieve = gitlabAPI.retrieve();
-        Map<String, Object> content = retrieve.to("/projects/" + project.getId() + "/repository/files?file_path=" + path + "&ref=" + branch, HashMap.class);
-        if (content.containsKey("content")) {
-            byte[] contents = Base64.decodeBase64((String) content.get("content"));
-            return new String(contents);
+        return null;
+    }
+
+    public byte[] renderPuml(String filePath, String source) throws Exception {
+        String md5Key = DigestUtils.md5Hex(source);
+        Element element = uniqueImagesCache.get(md5Key);
+        if (element != null && !element.isExpired()) {
+            Object content = element.getObjectValue();
+            imageCache.put(new Element(filePath, content));
+            return (byte[]) content;
+        }
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        SourceStringReader reader = new SourceStringReader(source);
+        String desc = reader.generateImage(bos);
+        if (desc == null || !"(Error)".equals(desc)) {
+            byte[] imageContent = bos.toByteArray();
+            imageCache.put(new Element(filePath, imageContent));
+            uniqueImagesCache.put(new Element(md5Key, imageContent));
+            return imageContent;
         }
         return null;
     }
