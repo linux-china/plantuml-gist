@@ -20,3 +20,10 @@ http://localhost:8080/gitlab/namespace/repository_1/blob/master/your_plantuml.pu
 
 please modify web.xml and change 'baseUrl', 'gitlabUrl' and 'userToken', then deploy it to tomcat.
        
+### Cache Strategy
+
+* 2 minutes for url path on server side, no Cache-Control header.
+* Cache for plantuml's image according to puml file's md5
+* Cache for puml file content according to gist id or gitlab path if remote request failed.
+
+You can modify ehcache.xml to adjust cache strategy.
