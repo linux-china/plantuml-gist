@@ -2,7 +2,7 @@
 <ehcache>
     <diskStore path="java.io.tmpdir"/>
     <cache name="plantUmlImages"
-           maxElementsInMemory="100"
+           maxElementsInMemory="800"
            maxElementsOnDisk="2000"
            eternal="false"
            overflowToDisk="true"
