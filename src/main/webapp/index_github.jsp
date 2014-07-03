@@ -22,7 +22,7 @@
     </div>
 
     <div class="jumbotron">
-        <h1>PlantUML Gitlab</h1>
+        <h1>PlantUML Github</h1>
 
         <p class="lead">Render PlantUML from Github. Please replace "xxx" with your file path in
             <strong><%=application.getInitParameter("baseUrl")%>/github/xxx</strong>
@@ -40,7 +40,7 @@
 
             <h4>Security</h4>
 
-            <p>Please make your repository public</p>
+            <p>Please make your github repository public</p>
 
             <h4>What is file path</h4>
 
