@@ -28,7 +28,9 @@
             <strong><%=application.getInitParameter("baseUrl")%>/github/xxx</strong>
         </p>
 
-        <p><a class="btn btn-lg btn-success" href="#" role="button"><%=application.getInitParameter("baseUrl")%>/github/xxx.puml</a>
+        <p><a class="btn btn-lg btn-success"
+              href="<%=application.getInitParameter("baseUrl")%>/github/linux-china/plantuml-gist/blob/master/src/main/uml/plantuml_gist.puml"
+              role="button" target="_blank">/github/linux-china/plantuml-gist/blob/master/src/main/uml/plantuml_gist.puml</a>
         </p>
     </div>
 
