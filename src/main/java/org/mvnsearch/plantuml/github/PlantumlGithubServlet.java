@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 /**
@@ -32,7 +31,6 @@ public class PlantumlGithubServlet extends HttpServlet {
     private Cache imageCache = CacheManager.getInstance().getCache("plantUmlImages");
     private Cache uniqueImagesCache = CacheManager.getInstance().getCache("uniqueImages");
     private byte[] noPumlFound = null;
-    private byte[] notDeveloper = null;
     private byte[] renderError = null;
 
     public void init(ServletConfig config) throws ServletException {
@@ -40,7 +38,6 @@ public class PlantumlGithubServlet extends HttpServlet {
         try {
             noPumlFound = IOUtils.toByteArray(this.getClass().getResourceAsStream("/img/no_puml_found.png"));
             renderError = IOUtils.toByteArray(this.getClass().getResourceAsStream("/img/render_error.png"));
-            notDeveloper = IOUtils.toByteArray(this.getClass().getResourceAsStream("/img/gitlab_not_developer.png"));
         } catch (Exception e) {
             throw new ServletException(e);
         }
@@ -68,10 +65,7 @@ public class PlantumlGithubServlet extends HttpServlet {
                             imageContent = noPumlFound;
                         }
                     }
-                } catch (FileNotFoundException e) {
-                    imageContent = notDeveloper;
-                } catch (Exception e) {
-                    e.printStackTrace();
+                } catch (Exception ignore) {
                 }
             }
         } else {
@@ -96,7 +90,7 @@ public class PlantumlGithubServlet extends HttpServlet {
         try {
             return HttpClientUtils.getResponseBody(httpUrl);
         } catch (Exception ignore) {
-           ignore.printStackTrace();
+            ignore.printStackTrace();
         }
         return null;
     }
