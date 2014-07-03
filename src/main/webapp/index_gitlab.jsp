@@ -14,7 +14,8 @@
 <div class="container">
     <div class="header">
         <ul class="nav nav-pills pull-right">
-            <li class="active"><a href="/">Plantuml Gist</a></li>
+            <li><a href="/">Plantuml Gist</a></li>
+            <li><a href="/index_github.jsp">Plantuml Github</a></li>
             <li><a href="https://github.com/linux-china/plantuml-gist" target="_blank">Source</a></li>
         </ul>
         <h3 class="text-muted">PlantUML Gitlab</h3>
