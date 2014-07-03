@@ -30,7 +30,7 @@
 
         <p><a class="btn btn-lg btn-success"
               href="<%=application.getInitParameter("baseUrl")%>/github/linux-china/plantuml-gist/blob/master/src/main/uml/plantuml_gist.puml"
-              role="button" target="_blank">/github/linux-china/plantuml-gist/blob/master/src/main/uml/plantuml_gist.puml</a>
+              role="button" target="_blank"><%=application.getInitParameter("baseUrl")%>/xxx.puml</a>
         </p>
     </div>
 
