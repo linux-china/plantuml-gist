@@ -7,6 +7,7 @@ import net.sf.ehcache.Element;
 import net.sourceforge.plantuml.SourceStringReader;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.IOUtils;
+import org.mvnsearch.plantuml.PlantUmlBaseServlet;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -23,23 +24,16 @@ import java.util.Map;
  *
  * @author linux_china
  */
-public class PlantumlGistServlet extends HttpServlet {
+public class PlantumlGistServlet extends PlantUmlBaseServlet {
     /**
      * image cache
      */
-    private Cache imageCache = CacheManager.getInstance().getCache("plantUmlImages");
-    private Cache uniqueImagesCache = CacheManager.getInstance().getCache("uniqueImages");
-    private Cache fileCache = CacheManager.getInstance().getCache("plantUmlFiles");
     private byte[] gistNotFound = null;
-    private byte[] noPumlFound = null;
-    private byte[] renderError = null;
 
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
         try {
             gistNotFound = IOUtils.toByteArray(this.getClass().getResourceAsStream("/img/gist_not_found.png"));
-            noPumlFound = IOUtils.toByteArray(this.getClass().getResourceAsStream("/img/no_puml_found.png"));
-            renderError = IOUtils.toByteArray(this.getClass().getResourceAsStream("/img/render_error.png"));
         } catch (Exception e) {
             throw new ServletException(e);
         }
@@ -109,26 +103,6 @@ public class PlantumlGistServlet extends HttpServlet {
             }
         }
         return "no puml found";
-    }
-
-    public byte[] renderPuml(String gistID, String source) throws Exception {
-        String md5Key = DigestUtils.md5Hex(source);
-        Element element = uniqueImagesCache.get(md5Key);
-        if (element != null && !element.isExpired()) {
-            Object content = element.getObjectValue();
-            imageCache.put(new Element(gistID, content));
-            return (byte[]) content;
-        }
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        SourceStringReader reader = new SourceStringReader(source);
-        String desc = reader.generateImage(bos);
-        if (desc == null || !"(Error)".equals(desc)) {
-            byte[] imageContent = bos.toByteArray();
-            imageCache.put(new Element(gistID, imageContent));
-            uniqueImagesCache.put(new Element(md5Key, imageContent));
-            return imageContent;
-        }
-        return null;
     }
 
 }

@@ -1,20 +1,14 @@
 package org.mvnsearch.plantuml.github;
 
-import net.sf.ehcache.Cache;
-import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
-import net.sourceforge.plantuml.SourceStringReader;
-import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.io.IOUtils;
+import org.mvnsearch.plantuml.PlantUmlBaseServlet;
 import org.mvnsearch.plantuml.gist.HttpClientUtils;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 /**
@@ -24,23 +18,10 @@ import java.io.IOException;
  *
  * @author linux_china
  */
-public class PlantumlGithubServlet extends HttpServlet {
-    /**
-     * image cache
-     */
-    private Cache imageCache = CacheManager.getInstance().getCache("plantUmlImages");
-    private Cache uniqueImagesCache = CacheManager.getInstance().getCache("uniqueImages");
-    private byte[] noPumlFound = null;
-    private byte[] renderError = null;
+public class PlantumlGithubServlet extends PlantUmlBaseServlet {
 
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        try {
-            noPumlFound = IOUtils.toByteArray(this.getClass().getResourceAsStream("/img/no_puml_found.png"));
-            renderError = IOUtils.toByteArray(this.getClass().getResourceAsStream("/img/render_error.png"));
-        } catch (Exception e) {
-            throw new ServletException(e);
-        }
     }
 
     @Override
@@ -91,26 +72,6 @@ public class PlantumlGithubServlet extends HttpServlet {
             return HttpClientUtils.getResponseBody(httpUrl);
         } catch (Exception ignore) {
             ignore.printStackTrace();
-        }
-        return null;
-    }
-
-    public byte[] renderPuml(String filePath, String source) throws Exception {
-        String md5Key = DigestUtils.md5Hex(source);
-        Element element = uniqueImagesCache.get(md5Key);
-        if (element != null && !element.isExpired()) {
-            Object content = element.getObjectValue();
-            imageCache.put(new Element(filePath, content));
-            return (byte[]) content;
-        }
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        SourceStringReader reader = new SourceStringReader(source);
-        String desc = reader.generateImage(bos);
-        if (desc == null || !"(Error)".equals(desc)) {
-            byte[] imageContent = bos.toByteArray();
-            imageCache.put(new Element(filePath, imageContent));
-            uniqueImagesCache.put(new Element(md5Key, imageContent));
-            return imageContent;
         }
         return null;
     }
