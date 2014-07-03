@@ -1,0 +1,15 @@
+@startuml
+
+package "PlantUML Repository" {
+    [Gitlab]
+    [Github]
+    [Github Gist]
+}
+
+[PlantUMLRenderServlet] --> [Gitlab]
+[PlantUMLRenderServlet] --> [Github]
+[PlantUMLRenderServlet] --> [Github Gist]
+
+HTTP <-- [PlantUMLRenderServlet]
+
+@enduml
