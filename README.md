@@ -4,7 +4,8 @@ Render PlantUML from Github Gist & Gitlab
 
 ### Features
 
-* gist & gitlab support
+* Github & Gist support
+* Gitlab support
 * Error Image
 * Cache support
 
@@ -27,3 +28,8 @@ please modify web.xml and change 'baseUrl', 'gitlabUrl' and 'userToken', then de
 * Cache for puml file content according to gist id or gitlab path if remote request failed.
 
 You can modify ehcache.xml to adjust cache strategy.
+
+### Todo
+
+* Stash Integration
+* Bitbucket Integration
