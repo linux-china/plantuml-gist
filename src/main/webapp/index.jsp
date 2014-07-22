@@ -26,7 +26,7 @@
         <p class="lead">Render PlantUML from Github Gist. Please replace "xxx" with your gist id in <strong><%=application.getInitParameter("baseUrl")%>/gist/xxx</strong>
         </p>
 
-        <p><a class="btn btn-lg btn-success" href="/gist/7563171" role="button" target="_blank"><%=application.getInitParameter("baseUrl")%>/git/7563171</a>
+        <p><a class="btn btn-lg btn-success" href="/gist/7563171" role="button" target="_blank"><%=application.getInitParameter("baseUrl")%>/gist/7563171</a>
         </p>
     </div>
 
