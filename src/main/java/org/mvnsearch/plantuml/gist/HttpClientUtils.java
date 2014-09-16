@@ -1,5 +1,6 @@
 package org.mvnsearch.plantuml.gist;
 
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.httpclient.DefaultHttpMethodRetryHandler;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
@@ -17,6 +18,14 @@ public class HttpClientUtils {
 
     public static String getResponseBody(String httpUrl) throws IOException {
         GetMethod getMethod = new GetMethod(httpUrl);
+        getHttpClient().executeMethod(getMethod);
+        return getMethod.getResponseBodyAsString();
+    }
+
+    public static String getResponseBody(String userName, String password, String httpUrl) throws IOException {
+        GetMethod getMethod = new GetMethod(httpUrl);
+        String encoding = Base64.encodeBase64String((userName + ":" + password).getBytes());
+        getMethod.addRequestHeader("Authorization", "Basic " + encoding);
         getHttpClient().executeMethod(getMethod);
         return getMethod.getResponseBodyAsString();
     }
