@@ -36,11 +36,7 @@ You can modify ehcache.xml to adjust cache strategy.
 
 ### Todo
 
-* Stash Integration
 * Bitbucket Integration
-
-
-
 
 PlantUML Gist
 ======================================
