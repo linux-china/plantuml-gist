@@ -1,0 +1,368 @@
+{"lines": [
+    {
+        "text": "# -*- mode: ruby -*-"
+    },
+    {
+        "text": "# vi: set ft=ruby :"
+    },
+    {
+        "text": ""
+    },
+    {
+        "text": "# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!"
+    },
+    {
+        "text": "VAGRANTFILE_API_VERSION = \"2\""
+    },
+    {
+        "text": ""
+    },
+    {
+        "text": "Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|"
+    },
+    {
+        "text": "  # All Vagrant configuration is done here. The most common configuration"
+    },
+    {
+        "text": "  # options are documented and commented below. For a complete reference,"
+    },
+    {
+        "text": "  # please see the online documentation at vagrantup.com."
+    },
+    {
+        "text": ""
+    },
+    {
+        "text": "  # Every Vagrant virtual environment requires a box to build off of."
+    },
+    {
+        "text": "  config.vm.box = \"precise32\""
+    },
+    {
+        "text": ""
+    },
+    {
+        "text": "  # Disable automatic box update checking. If you disable this, then"
+    },
+    {
+        "text": "  # boxes will only be checked for updates when the user runs"
+    },
+    {
+        "text": "  # `vagrant box outdated`. This is not recommended."
+    },
+    {
+        "text": "  # config.vm.box_check_update = false"
+    },
+    {
+        "text": ""
+    },
+    {
+        "text": "  # Create a forwarded port mapping which allows access to a specific port"
+    },
+    {
+        "text": "  # within the machine from a port on the host machine. In the example below,"
+    },
+    {
+        "text": "  # accessing \"localhost:8080\" will access port 80 on the guest machine."
+    },
+    {
+        "text": "  # config.vm.network \"forwarded_port\", guest: 80, host: 8080"
+    },
+    {
+        "text": ""
+    },
+    {
+        "text": "  # Create a private network, which allows host-only access to the machine"
+    },
+    {
+        "text": "  # using a specific IP."
+    },
+    {
+        "text": "  config.vm.network \"private_network\", ip: \"192.168.33.33\""
+    },
+    {
+        "text": ""
+    },
+    {
+        "text": "  # Create a public network, which generally matched to bridged network."
+    },
+    {
+        "text": "  # Bridged networks make the machine appear as another physical device on"
+    },
+    {
+        "text": "  # your network."
+    },
+    {
+        "text": "  # config.vm.network \"public_network\""
+    },
+    {
+        "text": ""
+    },
+    {
+        "text": "  # If true, then any SSH connections made will enable agent forwarding."
+    },
+    {
+        "text": "  # Default value: false"
+    },
+    {
+        "text": "  # config.ssh.forward_agent = true"
+    },
+    {
+        "text": ""
+    },
+    {
+        "text": "  # Share an additional folder to the guest VM. The first argument is"
+    },
+    {
+        "text": "  # the path on the host to the actual folder. The second argument is"
+    },
+    {
+        "text": "  # the path on the guest to mount the folder. And the optional third"
+    },
+    {
+        "text": "  # argument is a set of non-required options."
+    },
+    {
+        "text": "  # config.vm.synced_folder \"../data\", \"/vagrant_data\""
+    },
+    {
+        "text": ""
+    },
+    {
+        "text": "  # Provider-specific configuration so you can fine-tune various"
+    },
+    {
+        "text": "  # backing providers for Vagrant. These expose provider-specific options."
+    },
+    {
+        "text": "  # Example for VirtualBox:"
+    },
+    {
+        "text": "  #"
+    },
+    {
+        "text": "  # config.vm.provider \"virtualbox\" do |vb|"
+    },
+    {
+        "text": "  #   # Don't boot with headless mode"
+    },
+    {
+        "text": "  #   vb.gui = true"
+    },
+    {
+        "text": "  #"
+    },
+    {
+        "text": "  #   # Use VBoxManage to customize the VM. For example to change memory:"
+    },
+    {
+        "text": "  #   vb.customize [\"modifyvm\", :id, \"--memory\", \"1024\"]"
+    },
+    {
+        "text": "  # end"
+    },
+    {
+        "text": "  #"
+    },
+    {
+        "text": "  # View the documentation for the provider you're using for more"
+    },
+    {
+        "text": "  # information on available options."
+    },
+    {
+        "text": ""
+    },
+    {
+        "text": "  # Enable provisioning with CFEngine. CFEngine Community packages are"
+    },
+    {
+        "text": "  # automatically installed. For example, configure the host as a"
+    },
+    {
+        "text": "  # policy server and optionally a policy file to run:"
+    },
+    {
+        "text": "  #"
+    },
+    {
+        "text": "  # config.vm.provision \"cfengine\" do |cf|"
+    },
+    {
+        "text": "  #   cf.am_policy_hub = true"
+    },
+    {
+        "text": "  #   # cf.run_file = \"motd.cf\""
+    },
+    {
+        "text": "  # end"
+    },
+    {
+        "text": "  #"
+    },
+    {
+        "text": "  # You can also configure and bootstrap a client to an existing"
+    },
+    {
+        "text": "  # policy server:"
+    },
+    {
+        "text": "  #"
+    },
+    {
+        "text": "  # config.vm.provision \"cfengine\" do |cf|"
+    },
+    {
+        "text": "  #   cf.policy_server_address = \"10.0.2.15\""
+    },
+    {
+        "text": "  # end"
+    },
+    {
+        "text": ""
+    },
+    {
+        "text": "  # Enable provisioning with Puppet stand alone.  Puppet manifests"
+    },
+    {
+        "text": "  # are contained in a directory path relative to this Vagrantfile."
+    },
+    {
+        "text": "  # You will need to create the manifests directory and a manifest in"
+    },
+    {
+        "text": "  # the file default.pp in the manifests_path directory."
+    },
+    {
+        "text": "  #"
+    },
+    {
+        "text": "  # config.vm.provision \"puppet\" do |puppet|"
+    },
+    {
+        "text": "  #   puppet.manifests_path = \"manifests\""
+    },
+    {
+        "text": "  #   puppet.manifest_file  = \"site.pp\""
+    },
+    {
+        "text": "  # end"
+    },
+    {
+        "text": ""
+    },
+    {
+        "text": "  # Enable provisioning with chef solo, specifying a cookbooks path, roles"
+    },
+    {
+        "text": "  # path, and data_bags path (all relative to this Vagrantfile), and adding"
+    },
+    {
+        "text": "  # some recipes and/or roles."
+    },
+    {
+        "text": "  #"
+    },
+    {
+        "text": "  # config.vm.provision \"chef_solo\" do |chef|"
+    },
+    {
+        "text": "  #   chef.cookbooks_path = \"../my-recipes/cookbooks\""
+    },
+    {
+        "text": "  #   chef.roles_path = \"../my-recipes/roles\""
+    },
+    {
+        "text": "  #   chef.data_bags_path = \"../my-recipes/data_bags\""
+    },
+    {
+        "text": "  #   chef.add_recipe \"mysql\""
+    },
+    {
+        "text": "  #   chef.add_role \"web\""
+    },
+    {
+        "text": "  #"
+    },
+    {
+        "text": "  #   # You may also specify custom JSON attributes:"
+    },
+    {
+        "text": "  #   chef.json = { mysql_password: \"foo\" }"
+    },
+    {
+        "text": "  # end"
+    },
+    {
+        "text": ""
+    },
+    {
+        "text": "  # Enable provisioning with chef server, specifying the chef server URL,"
+    },
+    {
+        "text": "  # and the path to the validation key (relative to this Vagrantfile)."
+    },
+    {
+        "text": "  #"
+    },
+    {
+        "text": "  # The Opscode Platform uses HTTPS. Substitute your organization for"
+    },
+    {
+        "text": "  # ORGNAME in the URL and validation key."
+    },
+    {
+        "text": "  #"
+    },
+    {
+        "text": "  # If you have your own Chef Server, use the appropriate URL, which may be"
+    },
+    {
+        "text": "  # HTTP instead of HTTPS depending on your configuration. Also change the"
+    },
+    {
+        "text": "  # validation key to validation.pem."
+    },
+    {
+        "text": "  #"
+    },
+    {
+        "text": "  # config.vm.provision \"chef_client\" do |chef|"
+    },
+    {
+        "text": "  #   chef.chef_server_url = \"https://api.opscode.com/organizations/ORGNAME\""
+    },
+    {
+        "text": "  #   chef.validation_key_path = \"ORGNAME-validator.pem\""
+    },
+    {
+        "text": "  # end"
+    },
+    {
+        "text": "  #"
+    },
+    {
+        "text": "  # If you're using the Opscode platform, your validator client is"
+    },
+    {
+        "text": "  # ORGNAME-validator, replacing ORGNAME with your organization name."
+    },
+    {
+        "text": "  #"
+    },
+    {
+        "text": "  # If you have your own Chef Server, the default validation client name is"
+    },
+    {
+        "text": "  # chef-validator, unless you changed the configuration."
+    },
+    {
+        "text": "  #"
+    },
+    {
+        "text": "  #   chef.validation_client_name = \"ORGNAME-validator\""
+    },
+    {
+        "text": "end"
+    }
+], "start": 0, "size": 122, "isLastPage": true}
