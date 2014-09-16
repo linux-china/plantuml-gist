@@ -34,7 +34,7 @@ public class PlantUmlStashServlet extends PlantUmlBaseServlet {
         super.init(config);
         username = config.getInitParameter("username");
         password = config.getInitParameter("password");
-        baseUrl = config.getInitParameter("baseUrl");
+        baseUrl = config.getInitParameter("stashUrl");
         try {
             notDeveloper = IOUtils.toByteArray(this.getClass().getResourceAsStream("/img/gitlab_not_developer.png"));
         } catch (IOException ignore) {
