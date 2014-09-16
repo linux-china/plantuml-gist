@@ -29,6 +29,22 @@
             <param-value>xxxxxx</param-value>
         </init-param>
     </servlet>
+    <servlet>
+        <servlet-name>PlantUmlStashServlet</servlet-name>
+        <servlet-class>org.mvnsearch.plantuml.stash.PlantUmlStashServlet</servlet-class>
+        <init-param>
+            <param-name>stashUrl</param-name>
+            <param-value>http://git.mvnsearch.org</param-value>
+        </init-param>
+        <init-param>
+            <param-name>username</param-name>
+            <param-value>xxx</param-value>
+        </init-param>
+        <init-param>
+            <param-name>password</param-name>
+            <param-value>xxx</param-value>
+        </init-param>
+    </servlet>
     <servlet-mapping>
         <servlet-name>PlantumlGistServlet</servlet-name>
         <url-pattern>/gist/*</url-pattern>
@@ -40,5 +56,9 @@
     <servlet-mapping>
         <servlet-name>PlantumlGithubServlet</servlet-name>
         <url-pattern>/github/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PlantUmlStashServlet</servlet-name>
+        <url-pattern>/stash/*</url-pattern>
     </servlet-mapping>
 </web-app>
