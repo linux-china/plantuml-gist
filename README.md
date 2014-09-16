@@ -80,6 +80,12 @@ http://localhost:8080/gitlab/namespace/repository_1/blob/master/your_plantuml.pu
 
 你可以修改 ehcache.xml 文件来调整缓存策略
 
+
+### Stash整合
+
+* use browser api
+* 验证走http basic
+
 ### 规划
 
 * Stash Integration
