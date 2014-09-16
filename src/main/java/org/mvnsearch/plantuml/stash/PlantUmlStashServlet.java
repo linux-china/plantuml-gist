@@ -48,7 +48,8 @@ public class PlantUmlStashServlet extends PlantUmlBaseServlet {
         ServletOutputStream output = response.getOutputStream();
         byte[] imageContent = renderError;
         String requestURI = request.getRequestURI();
-        String filePath = requestURI.replace("/stash/", "/");
+        //remove mapping
+        String filePath = requestURI.substring(requestURI.indexOf("/",1));
         if (filePath.endsWith(".puml")) {
             Element element = imageCache.get(filePath);
             if (element != null && !element.isExpired()) {  //cache
