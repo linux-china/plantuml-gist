@@ -47,7 +47,8 @@ public class PlantUmlStashServlet extends PlantUmlBaseServlet {
         response.setContentType("image/png");
         ServletOutputStream output = response.getOutputStream();
         byte[] imageContent = renderError;
-        String filePath = request.getRequestURI();
+        String requestURI = request.getRequestURI();
+        String filePath = requestURI.replace("/stash/", "/");
         if (filePath.endsWith(".puml")) {
             Element element = imageCache.get(filePath);
             if (element != null && !element.isExpired()) {  //cache
@@ -85,7 +86,7 @@ public class PlantUmlStashServlet extends PlantUmlBaseServlet {
      */
     @SuppressWarnings("unchecked")
     public String getStashFileContent(String filePath) throws Exception {
-        String url = baseUrl + "/rest/api/1.0/" + filePath;
+        String url = baseUrl + "/rest/api/1.0" + filePath;
         String body = HttpClientUtils.getResponseBody(username, password, url);
         Gson gson = new Gson();
         Map json = gson.fromJson(body, Map.class);
