@@ -61,7 +61,7 @@ public class PlantumlGitlabServlet extends PlantUmlBaseServlet {
         byte[] imageContent = renderError;
         String requestURI = request.getRequestURI();
         //remove mapping
-        String filePath = requestURI.substring(requestURI.indexOf("/", 1));
+        String filePath = requestURI.replace("/gitlab/", "/").substring(requestURI.indexOf("/", 1));
         if (filePath.endsWith(".puml")) {
             Element element = imageCache.get(filePath);
             if (element != null && !element.isExpired()) {  //cache
