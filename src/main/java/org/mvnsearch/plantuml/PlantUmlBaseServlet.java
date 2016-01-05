@@ -11,6 +11,7 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 /**
  * plantuml base servlet
@@ -53,5 +54,16 @@ public class PlantUmlBaseServlet extends HttpServlet {
             return imageContent;
         }
         return null;
+    }
+
+    protected byte[] renderPuml(String source) throws IOException {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        SourceStringReader reader = new SourceStringReader(source);
+        String desc = reader.generateImage(bos);
+        if (desc == null || !"(Error)".equals(desc)) {
+            return bos.toByteArray();
+        } else {
+            return null;
+        }
     }
 }
