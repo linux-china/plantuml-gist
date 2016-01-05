@@ -16,6 +16,7 @@
         <ul class="nav nav-pills pull-right">
             <li><a href="/">Plantuml Gist</a></li>
             <li><a href="/index_github.jsp">Plantuml Github</a></li>
+            <li><a href="/gravizo.jsp">Gravizo</a></li>
             <li><a href="https://github.com/linux-china/plantuml-gist" target="_blank">Source</a></li>
         </ul>
         <h3 class="text-muted">PlantUML Gitlab</h3>
@@ -28,7 +29,8 @@
             <strong><%=application.getInitParameter("baseUrl")%>/gitlab/xxx</strong>
         </p>
 
-        <p><a class="btn btn-lg btn-success" href="#" role="button"><%=application.getInitParameter("baseUrl")%>/gitlab/xxx.puml</a>
+        <p><a class="btn btn-lg btn-success" href="#" role="button"><%=application.getInitParameter("baseUrl")%>
+            /gitlab/xxx.puml</a>
         </p>
     </div>
 

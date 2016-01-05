@@ -16,6 +16,7 @@
         <ul class="nav nav-pills pull-right">
             <li><a href="/index_gitlab.jsp">Plantuml Gitlab</a></li>
             <li><a href="/index_github.jsp">Plantuml Github</a></li>
+            <li><a href="/gravizo.jsp">Gravizo</a></li>
             <li><a href="https://github.com/linux-china/plantuml-gist" target="_blank">Source</a></li>
         </ul>
         <h3 class="text-muted">PlantUML Gist</h3>
