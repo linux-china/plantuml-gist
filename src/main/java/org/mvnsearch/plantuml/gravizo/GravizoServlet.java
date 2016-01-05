@@ -1,5 +1,6 @@
 package org.mvnsearch.plantuml.gravizo;
 
+import org.apache.commons.lang3.StringUtils;
 import org.mvnsearch.plantuml.PlantUmlBaseServlet;
 import org.mvnsearch.plantuml.gist.HttpClientUtils;
 
@@ -30,7 +31,7 @@ public class GravizoServlet extends PlantUmlBaseServlet {
         ServletOutputStream output = response.getOutputStream();
         String content = null;
         String query = request.getQueryString();
-        if (query != null) {
+        if (StringUtils.isNotEmpty(query)) {
             content = URLDecoder.decode(query, "utf-8").trim();
         }
         byte[] imageContent = renderPuml(content);
