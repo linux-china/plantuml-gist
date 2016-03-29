@@ -49,6 +49,10 @@
         <servlet-name>GravizoServlet</servlet-name>
         <servlet-class>org.mvnsearch.plantuml.gravizo.GravizoServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>imgservlet</servlet-name>
+        <servlet-class>net.sourceforge.plantuml.servlet.ImgServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>PlantumlGistServlet</servlet-name>
         <url-pattern>/gist/*</url-pattern>
@@ -68,5 +72,13 @@
     <servlet-mapping>
         <servlet-name>GravizoServlet</servlet-name>
         <url-pattern>/g</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>imgservlet</servlet-name>
+        <url-pattern>/png/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>imgservlet</servlet-name>
+        <url-pattern>/img/*</url-pattern>
     </servlet-mapping>
 </web-app>
