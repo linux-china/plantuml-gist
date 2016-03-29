@@ -45,6 +45,10 @@
             <param-value>xxx</param-value>
         </init-param>
     </servlet>
+    <servlet>
+        <servlet-name>GravizoServlet</servlet-name>
+        <servlet-class>org.mvnsearch.plantuml.gravizo.GravizoServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>PlantumlGistServlet</servlet-name>
         <url-pattern>/gist/*</url-pattern>
@@ -60,5 +64,9 @@
     <servlet-mapping>
         <servlet-name>PlantUmlStashServlet</servlet-name>
         <url-pattern>/stash/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GravizoServlet</servlet-name>
+        <url-pattern>/g</url-pattern>
     </servlet-mapping>
 </web-app>
