@@ -18,7 +18,7 @@
         <dependency>
             <groupId>net.sourceforge.plantuml</groupId>
             <artifactId>plantuml</artifactId>
-            <version>8037</version>
+            <version>8050</version>
         </dependency>
         <dependency>
             <groupId>commons-httpclient</groupId>
@@ -59,7 +59,7 @@
         <dependency>
             <groupId>org.gitlab</groupId>
             <artifactId>java-gitlab-api</artifactId>
-            <version>1.2.0</version>
+            <version>1.2.7</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
