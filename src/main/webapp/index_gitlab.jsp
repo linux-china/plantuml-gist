@@ -29,8 +29,16 @@
             <strong><%=application.getInitParameter("baseUrl")%>/gitlab/xxx</strong>
         </p>
 
-        <p><a class="btn btn-lg btn-success" href="#" role="button"><%=application.getInitParameter("baseUrl")%>
-            /gitlab/xxx.puml</a>
+        <p><a class="btn btn-lg btn-success" href="#" role="button">
+            <%=application.getInitParameter("baseUrl")%>/gitlab/xxx.puml</a>
+        </p>
+
+        <p class="lead">Render PlantUML from Gitlab Gist. Please replace "yyy" with your gist id
+            <strong><%=application.getInitParameter("baseUrl")%>/gitlabgist/yyy</strong>
+        </p>
+
+        <p><a class="btn btn-lg btn-success" href="#" role="button">
+            <%=application.getInitParameter("baseUrl")%>/gitlabgist/4589</a>
         </p>
     </div>
 
@@ -55,7 +63,7 @@
     </div>
 
     <div class="footer">
-        <p>&copy; MvnSearch 2013 &nbsp;
+        <p>&copy; MvnSearch 2017 &nbsp;
             Links: &nbsp; <a href="http://plantuml.sourceforge.net" target="_blank">PlantUML</a>
             &nbsp; <a href="https://gist.github.com" target="_blank">GithubGist</a>
         </p>
