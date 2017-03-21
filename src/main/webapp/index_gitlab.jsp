@@ -37,7 +37,7 @@
             <strong><%=application.getInitParameter("baseUrl")%>/snippet/yyy</strong>
         </p>
 
-        <p><a class="btn btn-lg btn-success" href="#" role="button">
+        <p><a class="btn btn-lg btn-success" href="/snippet/4589" role="button">
             <%=application.getInitParameter("baseUrl")%>/snippet/4589</a>
         </p>
     </div>
