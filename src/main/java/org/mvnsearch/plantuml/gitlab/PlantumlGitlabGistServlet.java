@@ -42,7 +42,7 @@ public class PlantumlGitlabGistServlet extends PlantUmlBaseServlet {
         ServletOutputStream output = response.getOutputStream();
         byte[] imageContent = renderError;
         String requestURI = request.getRequestURI();
-        String gistId = requestURI.replace("/gitlabgist/", "");
+        String gistId = requestURI.replace("/snippet/", "");
         if (gistId.contains("?")) {
             gistId = gistId.substring(0, gistId.indexOf("?"));
         }
