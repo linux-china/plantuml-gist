@@ -30,6 +30,14 @@
         </init-param>
     </servlet>
     <servlet>
+        <servlet-name>PlantumlGitlabGistServlet</servlet-name>
+        <servlet-class>org.mvnsearch.plantuml.gitlab.PlantumlGitlabGistServlet</servlet-class>
+        <init-param>
+            <param-name>gitlabUrl</param-name>
+            <param-value>http://gitlab.mvnsearch.org</param-value>
+        </init-param>
+    </servlet>
+    <servlet>
         <servlet-name>PlantUmlStashServlet</servlet-name>
         <servlet-class>org.mvnsearch.plantuml.stash.PlantUmlStashServlet</servlet-class>
         <init-param>
@@ -60,6 +68,10 @@
     <servlet-mapping>
         <servlet-name>PlantumlGitlabServlet</servlet-name>
         <url-pattern>/gitlab/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PlantumlGitlabGistServlet</servlet-name>
+        <url-pattern>/gitlabgist/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>PlantumlGithubServlet</servlet-name>
