@@ -33,12 +33,12 @@
             <%=application.getInitParameter("baseUrl")%>/gitlab/xxx.puml</a>
         </p>
 
-        <p class="lead">Render PlantUML from Gitlab Gist. Please replace "yyy" with your gist id
-            <strong><%=application.getInitParameter("baseUrl")%>/gitlabgist/yyy</strong>
+        <p class="lead">Render PlantUML from Gitlab Gist. Please replace "yyy" with your public snippet id
+            <strong><%=application.getInitParameter("baseUrl")%>/snippet/yyy</strong>
         </p>
 
         <p><a class="btn btn-lg btn-success" href="#" role="button">
-            <%=application.getInitParameter("baseUrl")%>/gitlabgist/4589</a>
+            <%=application.getInitParameter("baseUrl")%>/snippet/4589</a>
         </p>
     </div>
 
