@@ -27,7 +27,7 @@ public class GravizoServlet extends PlantUmlBaseServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("image/png");
+        response.setContentType(imageContentType);
         ServletOutputStream output = response.getOutputStream();
         String content = null;
         String query = request.getQueryString();

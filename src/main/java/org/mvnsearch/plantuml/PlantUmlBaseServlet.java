@@ -3,6 +3,8 @@ package org.mvnsearch.plantuml;
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
+import net.sourceforge.plantuml.FileFormat;
+import net.sourceforge.plantuml.FileFormatOption;
 import net.sourceforge.plantuml.SourceStringReader;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.IOUtils;
@@ -24,6 +26,7 @@ public class PlantUmlBaseServlet extends HttpServlet {
     protected Cache fileCache = CacheManager.getInstance().getCache("plantUmlFiles");
     protected byte[] noPumlFound = null;
     protected byte[] renderError = null;
+    public static String imageContentType = "image/svg+xml";
 
     @Override
     public void init(ServletConfig config) throws ServletException {
@@ -46,7 +49,7 @@ public class PlantUmlBaseServlet extends HttpServlet {
         }
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         SourceStringReader reader = new SourceStringReader(source);
-        String desc = reader.generateImage(bos);
+        String desc = reader.generateImage(bos, new FileFormatOption(FileFormat.SVG));
         if (desc == null || !"(Error)".equals(desc)) {
             byte[] imageContent = bos.toByteArray();
             imageCache.put(new Element(filePath, imageContent));
@@ -59,7 +62,7 @@ public class PlantUmlBaseServlet extends HttpServlet {
     protected byte[] renderPuml(String source) throws IOException {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         SourceStringReader reader = new SourceStringReader(source);
-        String desc = reader.generateImage(bos);
+        String desc = reader.generateImage(bos, new FileFormatOption(FileFormat.SVG));
         if (desc == null || !"(Error)".equals(desc)) {
             return bos.toByteArray();
         } else {

@@ -44,12 +44,12 @@ public class PlantUmlStashServlet extends PlantUmlBaseServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("image/png");
+        response.setContentType(imageContentType);
         ServletOutputStream output = response.getOutputStream();
         byte[] imageContent = renderError;
         String requestURI = request.getRequestURI();
         //remove mapping
-        String filePath = requestURI.substring(requestURI.indexOf("/",1));
+        String filePath = requestURI.substring(requestURI.indexOf("/", 1));
         if (filePath.endsWith(".puml")) {
             Element element = imageCache.get(filePath);
             if (element != null && !element.isExpired()) {  //cache

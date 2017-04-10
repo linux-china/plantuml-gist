@@ -56,7 +56,7 @@ public class PlantumlGitlabServlet extends PlantUmlBaseServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("image/png");
+        response.setContentType(imageContentType);
         ServletOutputStream output = response.getOutputStream();
         byte[] imageContent = renderError;
         String requestURI = request.getRequestURI();
