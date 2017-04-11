@@ -71,20 +71,24 @@ public class PlantumlGitlabServlet extends PlantUmlBaseServlet {
                     String source = getGitlabFileContent(filePath);
                     if (source == null) {  // puml file not found
                         imageContent = noPumlFound;
+                        response.setContentType("image/png");
                     } else {  //render puml content
                         imageContent = renderPuml(filePath, source);
                         if (imageContent == null) {
                             imageContent = noPumlFound;
+                            response.setContentType("image/png");
                         }
                     }
                 } catch (FileNotFoundException e) {
                     imageContent = notDeveloper;
+                    response.setContentType("image/png");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         } else {
             imageContent = noPumlFound;
+            response.setContentType("image/png");
         }
         output.write(imageContent);
         output.flush();

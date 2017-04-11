@@ -38,6 +38,7 @@ public class GravizoServlet extends PlantUmlBaseServlet {
         if (imageContent != null) {
             output.write(imageContent);
         } else {
+            response.setContentType("image/png");
             output.write(renderError);
         }
         output.flush();

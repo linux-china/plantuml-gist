@@ -41,10 +41,12 @@ public class PlantumlGithubServlet extends PlantUmlBaseServlet {
                     String source = getGithubFileContent(filePath);
                     if (source == null) {  // puml file not found
                         imageContent = noPumlFound;
+                        response.setContentType("image/png");
                     } else {  //render puml content
                         imageContent = renderPuml(filePath, source);
                         if (imageContent == null) {
                             imageContent = noPumlFound;
+                            response.setContentType("image/png");
                         }
                     }
                 } catch (Exception ignore) {
@@ -52,6 +54,7 @@ public class PlantumlGithubServlet extends PlantUmlBaseServlet {
             }
         } else {
             imageContent = noPumlFound;
+            response.setContentType("image/png");
         }
         output.write(imageContent);
         output.flush();
