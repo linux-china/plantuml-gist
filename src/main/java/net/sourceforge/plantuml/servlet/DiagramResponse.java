@@ -23,20 +23,19 @@
  */
 package net.sourceforge.plantuml.servlet;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletResponse;
-
 import net.sourceforge.plantuml.FileFormat;
 import net.sourceforge.plantuml.FileFormatOption;
 import net.sourceforge.plantuml.SourceStringReader;
 import net.sourceforge.plantuml.StringUtils;
 import net.sourceforge.plantuml.core.DiagramDescription;
 import net.sourceforge.plantuml.servlet.utility.NullOutputStream;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Delegates the diagram generation from the UML source and the filling of the HTTP response with the diagram in the
@@ -46,6 +45,7 @@ class DiagramResponse {
     private HttpServletResponse response;
     private FileFormat format;
     private static final Map<FileFormat, String> CONTENT_TYPE;
+
     static {
         Map<FileFormat, String> map = new HashMap<FileFormat, String>();
         map.put(FileFormat.PNG, "image/png");
@@ -80,16 +80,16 @@ class DiagramResponse {
         for (int i = 2; (i + 1) < mapLines.length; i++) {
             httpOut.print(mapLines[i]);
         }
-   }
+    }
 
     void sendCheck(String uml) throws IOException {
         response.setContentType(getContentType());
         SourceStringReader reader = new SourceStringReader(uml);
-        DiagramDescription desc = reader.generateDiagramDescription(
-            new NullOutputStream(), new FileFormatOption(FileFormat.PNG, false));
+        DiagramDescription desc = reader.generateDiagramDescription(new FileFormatOption(FileFormat.PNG, false));
         PrintWriter httpOut = response.getWriter();
         httpOut.print(desc.getDescription());
- }
+    }
+
     private void addHeaderForCache() {
         long today = System.currentTimeMillis();
         // Add http headers to force the browser to cache the image
