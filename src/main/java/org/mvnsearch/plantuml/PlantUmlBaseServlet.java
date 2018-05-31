@@ -1,5 +1,9 @@
 package org.mvnsearch.plantuml;
 
+import com.igormaznitsa.mindmap.model.MindMap;
+import com.igormaznitsa.mindmap.swing.panel.MindMapPanel;
+import com.igormaznitsa.mindmap.swing.panel.MindMapPanelConfig;
+import com.igormaznitsa.mindmap.swing.panel.utils.RenderQuality;
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
@@ -9,12 +13,16 @@ import net.sourceforge.plantuml.SourceStringReader;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.IOUtils;
 
+import javax.imageio.ImageIO;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletResponse;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.StringReader;
 
 /**
  * plantuml base servlet
@@ -85,5 +93,17 @@ public class PlantUmlBaseServlet extends HttpServlet {
             }
         }
         return imageContent;
+    }
+
+    public byte[] renderMMD(String source) throws Exception {
+        MindMap model = new MindMap(null, new StringReader(source));
+        MindMapPanelConfig cfg = new MindMapPanelConfig();
+        cfg.setShowGrid(false);
+        cfg.setDrawBackground(false);
+        cfg.setConnectorColor(Color.BLUE);
+        BufferedImage bufferedImage = MindMapPanel.renderMindMapAsImage(model, cfg, true, RenderQuality.QUALITY);
+        ByteArrayOutputStream buff = new ByteArrayOutputStream();
+        ImageIO.write(bufferedImage, "png", buff);
+        return buff.toByteArray();
     }
 }
