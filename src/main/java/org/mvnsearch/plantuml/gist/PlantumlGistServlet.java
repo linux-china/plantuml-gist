@@ -1,21 +1,15 @@
 package org.mvnsearch.plantuml.gist;
 
 import com.google.gson.Gson;
-import net.sf.ehcache.Cache;
-import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
-import net.sourceforge.plantuml.SourceStringReader;
-import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.IOUtils;
 import org.mvnsearch.plantuml.PlantUmlBaseServlet;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Map;
 
@@ -58,15 +52,7 @@ public class PlantumlGistServlet extends PlantUmlBaseServlet {
         } else {
             try {
                 String source = getGistContent(gistId);
-                if (source == null) {  // gist not found
-                    imageContent = gistNotFound;
-                    response.setContentType("image/png");
-                } else if (source.equalsIgnoreCase("no puml found")) {  // no puml file found
-                    imageContent = noPumlFound;
-                    response.setContentType("image/png");
-                } else {  //render puml content
-                    imageContent = renderPuml(gistId, source);
-                }
+                imageContent = renderSource(gistId, source, response);
             } catch (Exception ignore) {
 
             }

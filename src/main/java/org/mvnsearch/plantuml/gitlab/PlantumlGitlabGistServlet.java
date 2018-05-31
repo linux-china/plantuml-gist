@@ -55,15 +55,7 @@ public class PlantumlGitlabGistServlet extends PlantUmlBaseServlet {
         } else {
             try {
                 String source = getGistContent(gistId);
-                if (source == null) {  // gist not found
-                    imageContent = gistNotFound;
-                    response.setContentType("image/png");
-                } else if (source.equalsIgnoreCase("no puml found")) {  // no puml file found
-                    imageContent = noPumlFound;
-                    response.setContentType("image/png");
-                } else {  //render puml content
-                    imageContent = renderPuml(gistId, source);
-                }
+                imageContent = renderSource(gistId,source,response);
             } catch (Exception ignore) {
 
             }

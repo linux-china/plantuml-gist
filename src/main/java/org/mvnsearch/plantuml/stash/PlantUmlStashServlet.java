@@ -57,16 +57,7 @@ public class PlantUmlStashServlet extends PlantUmlBaseServlet {
             } else {
                 try {
                     String source = getStashFileContent(filePath);
-                    if (source == null) {  // puml file not found
-                        imageContent = noPumlFound;
-                        response.setContentType("image/png");
-                    } else {  //render puml content
-                        imageContent = renderPuml(filePath, source);
-                        if (imageContent == null) {
-                            imageContent = noPumlFound;
-                            response.setContentType("image/png");
-                        }
-                    }
+                    imageContent = renderSource(filePath,source,response);
                 } catch (FileNotFoundException e) {
                     imageContent = notDeveloper;
                     response.setContentType("image/png");

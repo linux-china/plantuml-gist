@@ -12,6 +12,7 @@ import org.apache.commons.io.IOUtils;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletResponse;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
@@ -26,8 +27,8 @@ public class PlantUmlBaseServlet extends HttpServlet {
     protected Cache fileCache = CacheManager.getInstance().getCache("plantUmlFiles");
     protected byte[] noPumlFound = null;
     protected byte[] renderError = null;
-    public static String imageContentType = "image/svg+xml";
-    private static FileFormat imageFileFormat = FileFormat.SVG;
+    public static String imageContentType = "image/png";
+    private static FileFormat imageFileFormat = FileFormat.PNG;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
@@ -51,7 +52,7 @@ public class PlantUmlBaseServlet extends HttpServlet {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         SourceStringReader reader = new SourceStringReader(source);
         String desc = reader.generateImage(bos, new FileFormatOption(imageFileFormat));
-        if (desc == null || !"(Error)".equals(desc)) {
+        if (!"(Error)".equals(desc)) {
             byte[] imageContent = bos.toByteArray();
             imageCache.put(new Element(filePath, imageContent));
             uniqueImagesCache.put(new Element(md5Key, imageContent));
@@ -64,10 +65,25 @@ public class PlantUmlBaseServlet extends HttpServlet {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         SourceStringReader reader = new SourceStringReader(source);
         String desc = reader.generateImage(bos, new FileFormatOption(imageFileFormat));
-        if (desc == null || !"(Error)".equals(desc)) {
+        if (!"(Error)".equals(desc)) {
             return bos.toByteArray();
         } else {
             return null;
         }
+    }
+
+    protected byte[] renderSource(String filePath, String source, HttpServletResponse response) throws Exception {
+        byte[] imageContent;
+        if (source == null) {  // puml file not found
+            imageContent = noPumlFound;
+            response.setContentType("image/png");
+        } else {  //render puml content
+            imageContent = renderPuml(filePath, source);
+            if (imageContent == null) {
+                imageContent = noPumlFound;
+                response.setContentType("image/png");
+            }
+        }
+        return imageContent;
     }
 }

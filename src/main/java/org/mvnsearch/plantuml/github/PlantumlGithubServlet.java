@@ -39,16 +39,7 @@ public class PlantumlGithubServlet extends PlantUmlBaseServlet {
             } else {
                 try {
                     String source = getGithubFileContent(filePath);
-                    if (source == null) {  // puml file not found
-                        imageContent = noPumlFound;
-                        response.setContentType("image/png");
-                    } else {  //render puml content
-                        imageContent = renderPuml(filePath, source);
-                        if (imageContent == null) {
-                            imageContent = noPumlFound;
-                            response.setContentType("image/png");
-                        }
-                    }
+                    imageContent = renderSource(filePath,source,response);
                 } catch (Exception ignore) {
                 }
             }
@@ -74,8 +65,8 @@ public class PlantumlGithubServlet extends PlantUmlBaseServlet {
         String httpUrl = "https://raw.githubusercontent.com" + filePath;
         try {
             return HttpClientUtils.getResponseBody(httpUrl);
-        } catch (Exception ignore) {
-            ignore.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return null;
     }
