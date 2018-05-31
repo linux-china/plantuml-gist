@@ -3,7 +3,7 @@ package org.mvnsearch.plantuml.stash;
 import com.google.gson.Gson;
 import net.sf.ehcache.Element;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.mvnsearch.plantuml.PlantUmlBaseServlet;
 import org.mvnsearch.plantuml.gist.HttpClientUtils;
 
