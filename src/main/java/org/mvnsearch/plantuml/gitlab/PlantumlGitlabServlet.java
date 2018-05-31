@@ -1,26 +1,29 @@
 package org.mvnsearch.plantuml.gitlab;
 
-import net.sf.ehcache.Cache;
-import net.sf.ehcache.CacheManager;
+import com.igormaznitsa.mindmap.model.MindMap;
+import com.igormaznitsa.mindmap.swing.panel.MindMapPanel;
+import com.igormaznitsa.mindmap.swing.panel.MindMapPanelConfig;
+import com.igormaznitsa.mindmap.swing.panel.utils.RenderQuality;
 import net.sf.ehcache.Element;
-import net.sourceforge.plantuml.SourceStringReader;
 import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.IOUtils;
 import org.gitlab.api.GitlabAPI;
 import org.gitlab.api.http.GitlabHTTPRequestor;
 import org.gitlab.api.models.GitlabProject;
 import org.mvnsearch.plantuml.PlantUmlBaseServlet;
 
+import javax.imageio.ImageIO;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.StringReader;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,9 +35,9 @@ import java.util.Map;
  * @author linux_china
  */
 public class PlantumlGitlabServlet extends PlantUmlBaseServlet {
-    private byte[] notDeveloper = null;
-    private GitlabAPI gitlabAPI;
-    private GitlabInfo gitlabInfo = new GitlabInfo();
+    protected byte[] notDeveloper = null;
+    protected GitlabAPI gitlabAPI;
+    protected GitlabInfo gitlabInfo = new GitlabInfo();
 
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
@@ -56,10 +59,14 @@ public class PlantumlGitlabServlet extends PlantUmlBaseServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String requestURI = request.getRequestURI();
+        if (requestURI.endsWith(".mmd")) {
+            doGetMmd(request, response);
+            return;
+        }
         response.setContentType(imageContentType);
         ServletOutputStream output = response.getOutputStream();
         byte[] imageContent = renderError;
-        String requestURI = request.getRequestURI();
         //remove mapping
         String filePath = requestURI.substring(requestURI.indexOf("/", 1));
         if (filePath.endsWith(".puml") || filePath.endsWith(".uml")) {
@@ -69,7 +76,7 @@ public class PlantumlGitlabServlet extends PlantUmlBaseServlet {
             } else {
                 try {
                     String source = getGitlabFileContent(filePath);
-                    imageContent = renderSource(filePath,source,response);
+                    imageContent = renderSource(filePath, source, response);
                 } catch (FileNotFoundException e) {
                     imageContent = notDeveloper;
                     response.setContentType("image/png");
@@ -121,6 +128,39 @@ public class PlantumlGitlabServlet extends PlantUmlBaseServlet {
             }
         }
         return null;
+    }
+
+
+    protected void doGetMmd(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("image/png");
+        ServletOutputStream output = response.getOutputStream();
+        String requestURI = request.getRequestURI();
+        byte[] imageContent = notDeveloper;
+        //remove mapping
+        String filePath = requestURI.substring(requestURI.indexOf("/", 1));
+        if (filePath.endsWith(".mmd")) {
+            Element element = imageCache.get(filePath);
+            if (element != null && !element.isExpired()) {  //cache
+                imageContent = (byte[]) element.getObjectValue();
+            } else {
+                try {
+                    String source = getGitlabFileContent(filePath);
+                    MindMap model = new MindMap(null, new StringReader(source));
+                    MindMapPanelConfig cfg = new MindMapPanelConfig();
+                    cfg.setShowGrid(false);
+                    cfg.setDrawBackground(false);
+                    cfg.setConnectorColor(Color.BLUE);
+                    BufferedImage bufferedImage = MindMapPanel.renderMindMapAsImage(model, cfg, true, RenderQuality.QUALITY);
+                    ByteArrayOutputStream buff = new ByteArrayOutputStream();
+                    ImageIO.write(bufferedImage, "png", buff);
+                    imageContent = buff.toByteArray();
+                } catch (Exception e) {
+                    imageContent = renderError;
+                }
+            }
+        }
+        output.write(imageContent);
+        output.flush();
     }
 
 }
