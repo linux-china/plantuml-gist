@@ -99,7 +99,8 @@ public class PlantUmlBaseServlet extends HttpServlet {
         MindMap model = new MindMap(null, new StringReader(source));
         MindMapPanelConfig cfg = new MindMapPanelConfig();
         cfg.setShowGrid(false);
-        cfg.setDrawBackground(false);
+        cfg.setDrawBackground(true);
+        cfg.setPaperColor(Color.white);
         cfg.setConnectorColor(Color.BLUE);
         BufferedImage bufferedImage = MindMapPanel.renderMindMapAsImage(model, cfg, true, RenderQuality.QUALITY);
         ByteArrayOutputStream buff = new ByteArrayOutputStream();
