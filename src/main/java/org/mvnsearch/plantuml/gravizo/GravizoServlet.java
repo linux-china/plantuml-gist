@@ -1,8 +1,7 @@
 package org.mvnsearch.plantuml.gravizo;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.mvnsearch.plantuml.PlantUmlBaseServlet;
-import org.mvnsearch.plantuml.gist.HttpClientUtils;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
